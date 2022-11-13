@@ -1,9 +1,11 @@
 const express = require('express');
 const dbConnection = require('./config/dataBase/dbConnection');
 const app = express();
+require('dotenv').config();
 const cors = require('cors');
 app.use(cors())
-app.use(express.json()); // parse the buffer into JSON
+app.use(express.json());
+const PORT = process.env.PORT || 3001
 dbConnection(); // Database connection 
 
 app.use('/user', require('./api/user.api'));
@@ -20,4 +22,4 @@ const globalMiddleware = (err, req, res, next) => {
     })
 }
 
-app.listen(8000, () => console.log("Listening on port 8000..."));
+app.listen(PORT, () => console.log("Listening on port " + PORT));
